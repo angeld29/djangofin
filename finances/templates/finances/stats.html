@@ -1,0 +1,38 @@
+{% extends "admin/base_site.html" %}
+{% load admin_static admin_list i18n %}
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+{% endblock %}
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <h1>Статистика1</h1>
+    {% for item in filters %}
+      {{ item }}
+    {% endfor %}
+      <div class="module" id="changelist">
+      <form id="changelist-form" action="" method="post">{% csrf_token %}
+      <div class="results">
+        <table cellspacing="0" id="result_list">
+          <thead>
+          <tr>
+            <th scope="col">Сумма</th>
+            <th scope="col">Категория</th>
+          </tr>
+          </thead>
+          <tbody>
+        {% for item in data %}
+          <tr class="{% cycle 'row1' 'row2' %}">
+            <td align=right width=20>{{ item.sumtotal|rjust:"20" }}</td>
+            <td class="nowrap">{{ item.good__article__label }}</td>
+          </tr>
+        {% endfor %}
+          </tbody>
+         </table>
+      </div>
+      </form>
+      </div>
+    </div>
+{% endblock %}
